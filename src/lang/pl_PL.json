@@ -1,0 +1,5 @@
+{
+    "TITLE_OCCUPIED": "Tytuł jest już zajęty",
+    "POST_DOESNT_EXIST": "Post nie istnieje",
+    "AUTHENTICATION_FAILED": "Nieprawidłowa nazwa użytkownika lub hasło"
+}

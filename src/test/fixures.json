@@ -1,0 +1,19 @@
+{
+    "posts": [
+        {
+            "id": "1",
+            "title": "skiing",
+            "content": "skiing is cool",
+            "email": "ski@ing.com",
+            "zipCode": "12-123"
+        },
+        {
+            "id": "2",
+            "title": "dog",
+            "content": "hau hau",
+            "email": "doge@doge.com",
+            "zipCode": "23-234"
+        }
+    ]
+    
+}
