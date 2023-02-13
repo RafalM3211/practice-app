@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Login from '../views/Login/Login';
 import LoaderOverlay from '../components/loaderOverlay/LoaderOverlay';
 import { useContext } from 'react';
@@ -18,8 +18,11 @@ const UserProvider = ({ children }) => {
     },
   };
   const [isTokenLoading, setIsTokenLoading] = useState(true);
-
   const [user, setUser] = useState(initialUserState);
+  
+  const updateUser = useCallback((newData) => {
+    setUser(currentUser=>({ ...currentUser, ...newData }));
+  }, [setUser]);
 
   useEffect(() => {
     const checkToken = async (token) => {
@@ -34,11 +37,7 @@ const UserProvider = ({ children }) => {
       if (isValid) updateUser({ name: userName, isLoggedIn: true });
       else updateUser({ name: '', isLoggedIn: false });
     });
-  }, []);
-
-  const updateUser = (newData) => {
-    setUser({ ...user, ...newData });
-  };
+  }, [updateUser]);
 
   return (
     <UserContext.Provider value={{ user, updateUser }}>

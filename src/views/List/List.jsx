@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from 'react-query';
-import { useMemo, useContext, useState, useCallback, useEffect } from 'react';
+import { useMemo, useContext, useState, useCallback } from 'react';
 import AlertTitle from '@mui/material/AlertTitle';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
