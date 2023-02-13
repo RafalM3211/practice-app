@@ -1,6 +1,5 @@
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const ErrorSnackbar = (props) => {

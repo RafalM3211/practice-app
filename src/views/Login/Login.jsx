@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 
 const Login = () => {
   const intl = useIntl();
-  const { user, updateUser } = useUserContext();
+  const { updateUser } = useUserContext();
 
   useEffect(() => {
     console.log('login: Jan Kowalski, password: Librus12,');

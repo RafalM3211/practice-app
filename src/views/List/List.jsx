@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from 'react-query';
-import { useMemo, useContext, useState } from 'react';
+import { useMemo, useContext, useState, useCallback, useEffect } from 'react';
 import AlertTitle from '@mui/material/AlertTitle';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ import ViewHeader from '../../components/headers/MainHeader';
 import Modal from '../../components/modal/Modal';
 import { getPostsRequest, sendDeleteRequest } from '../../core/services/posts';
 import { Tooltip } from '@mui/material';
+
 
 const Main = () => {
   const navigate = useNavigate();
@@ -34,14 +35,14 @@ const Main = () => {
     },
   });
 
-  const handleEditClick = (id) => {
+  const handleEditClick = useCallback((id) => {
     navigate(`/edit/${id}`);
-  };
+  }, [navigate]); 
 
-  const handleDeleteClick = (row) => {
+  const handleDeleteClick = useCallback((row) => {
     setDeletedPost(row);
     setModalOpen(true);
-  };
+  }, [setDeletedPost, setModalOpen]);
 
   const deletePost = () => {
     mutate(deletedPost.id);
@@ -100,7 +101,7 @@ const Main = () => {
         },
       },
     ],
-    [handleDeleteClick],
+    [handleEditClick, handleDeleteClick],
   );
 
   return (
