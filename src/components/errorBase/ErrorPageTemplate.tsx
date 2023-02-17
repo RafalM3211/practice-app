@@ -1,7 +1,13 @@
 import Box from '@mui/material/Box';
 import AppBar from '../appBar/AppBar';
+import type {FC, ReactNode} from 'react';
 
-const ErrorBase = ({ children, unauthorized }) => {
+interface Props{
+  children: ReactNode,
+  unauthorized: boolean
+}
+
+const ErrorBase: FC<Props> = ({ children, unauthorized }) => {
   return (
     <>
       <Box
