@@ -1,6 +1,7 @@
 import Typography from '@mui/material/Typography';
+import type { FC } from 'react';
 
-const ViewHeader = ({ children }) => {
+const ViewHeader: FC<{children: string}> = ({ children }) => {
   return (
     <Typography
       sx={{
