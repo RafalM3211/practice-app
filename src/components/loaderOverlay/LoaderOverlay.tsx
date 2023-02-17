@@ -1,8 +1,14 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
+import type { FC } from 'react';
 
-const LoaderOverlay = ({ text, loading }) => {
+interface Props{
+  text: string,
+  loading: boolean
+}
+
+const LoaderOverlay: FC<Props> = ({ text, loading }) => {
   return (
     <Box
       sx={{
