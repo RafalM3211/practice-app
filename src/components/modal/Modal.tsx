@@ -3,8 +3,16 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Button from '@mui/material/Button';
+import type {FC} from 'react'
 
-const Modal = (props) => {
+interface Props{
+  title: string,
+  loading: boolean,
+  onConfirm(): void,
+  onCancel(): void
+}
+
+const Modal: FC<Props> = (props) => {
   return (
     <Box
       sx={{
