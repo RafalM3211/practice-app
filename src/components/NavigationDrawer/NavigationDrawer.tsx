@@ -9,7 +9,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { DrawerContext } from '../../context/drawer';
+import { useDrawerContext } from '../../context/drawer';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuLink from '../link/MenuLink';
@@ -17,7 +17,7 @@ import MenuLink from '../link/MenuLink';
 const drawerWidth = 240;
 
 const NavigationDrawer = () => {
-  const { isOpen, toggleOpenDrawer } = useContext(DrawerContext);
+  const { isOpen, toggleOpenDrawer } = useDrawerContext();
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down('lg'));
 
