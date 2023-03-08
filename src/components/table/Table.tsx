@@ -1,6 +1,11 @@
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
+import type { FC } from 'react';
+import type { AllNumber } from '../../globalTypes/utitityTypes';
+import type { Column } from '../../components/table/types';
+import type { Post } from '../../globalTypes/globalTypes';
+
 
 const tableTranslations = {
   columnMenuLabel: 'Menu',
@@ -31,18 +36,24 @@ const tableTranslations = {
   filterOperatorIsNotEmpty: 'nie jest puste',
   filterOperatorIsAnyOf: 'jest dowolnym z',
   noRowsLabel: 'brak postów',
-  toolbarFiltersTooltipActive: (count) => (count !== 1 ? `${count} aktywne filtry` : `${count} aktywny filtr`),
-  footerRowSelected: (count) =>
+  toolbarFiltersTooltipActive: (count: number) => (count !== 1 ? `${count} aktywne filtry` : `${count} aktywny filtr`),
+  footerRowSelected: (count: number) =>
     count !== 1 ? `${count.toLocaleString()} wierszy zaznaczonych` : `${count.toLocaleString()} wiersz zaznaczony`,
 };
 
-const generateDisplayedRowsLabel = ({ from, to, count, pageSize }) => {
+const generateDisplayedRowsLabel = ({ from, to, count, pageSize }: AllNumber) => {
   const currentPage = Math.ceil(to / pageSize);
   const totalPages = Math.ceil(count / pageSize);
   return `${currentPage} z ${totalPages}`;
 };
 
-const Table = (props) => {
+interface Props {
+  loading: boolean,
+  columns: Column[],
+  rows: Post[],
+}
+
+const Table: FC<Props> = (props) => {
   const [pageSize, setPageSize] = useState(10);
 
   return (
