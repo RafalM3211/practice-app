@@ -24,7 +24,7 @@ const Edit = () => {
   const navigate = useNavigate();
   const { successNotification, errorNotification } = useContext(SnackbarContext);
 
-  const { isLoading: isLoadingSinglePost, data: post } = useQuery(['singlePost', id], getSinglePostRequest);
+  const { isLoading: isLoadingSinglePost, data: post } = useQuery([id, 'singlePost'], getSinglePostRequest);
   const {
     mutate,
     isLoading: isLoadingSavingPost,

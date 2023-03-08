@@ -1,7 +1,7 @@
 import './App.css';
 import AppTheme from './context/theme/theme';
 import Main from './views/Main';
-import DrawerProvider from './context/drawer.js';
+import DrawerProvider from './context/drawer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import InternalServerError from './views/Errors/InternalServerError';

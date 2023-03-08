@@ -5,7 +5,7 @@ export const getPostsRequest = async () => {
 };
 
 export const getSinglePostRequest = async ({ queryKey }) => {
-  const [_key, id] = queryKey;
+  const [id] = queryKey;
   return await appApi.get(`/posts/${id}`).then((res) => res.json());
 };
 

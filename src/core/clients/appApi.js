@@ -1,4 +1,4 @@
-const createClient = (baseUrl, api) => {
+const createClient = (baseUrl, api = fetch) => {
   let interceptRequest = (url, options) => {
     return { interceptedUrl: url, interceptedOptions: options };
   };
