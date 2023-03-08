@@ -1,5 +1,3 @@
-import * as React from 'react';
-import { useContext } from 'react';
 import { useState, useRef } from 'react';
 import { AppBar as MuiAppBar } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -10,11 +8,16 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { DrawerContext } from '../../context/drawer';
+import { useDrawerContext } from '../../context/drawer';
 import { useUserContext } from '../../context/user';
+import type { FC } from 'react';
 
-const AppBar = ({ menuIconHidden }) => {
-  const { toggleOpenDrawer } = useContext(DrawerContext);
+interface Props {
+  menuIconHidden: boolean
+}
+
+const AppBar: FC<Props> = ({ menuIconHidden }) => {
+  const { toggleOpenDrawer } = useDrawerContext();
   const { user } = useUserContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const userElement = useRef(null);
