@@ -3,8 +3,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import type { FC } from 'react';
 import type { AllNumber } from '../../globalTypes/utitityTypes';
-import type { Column } from '../../components/table/types';
 import type { Post } from '../../globalTypes/globalTypes';
+import type { DataGridProps, GridColumns } from '@mui/x-data-grid';
 
 
 const tableTranslations = {
@@ -47,9 +47,9 @@ const generateDisplayedRowsLabel = ({ from, to, count, pageSize }: AllNumber) =>
   return `${currentPage} z ${totalPages}`;
 };
 
-interface Props {
+interface Props extends DataGridProps {
   loading: boolean,
-  columns: Column[],
+  columns: GridColumns<Post>,
   rows: Post[],
 }
 

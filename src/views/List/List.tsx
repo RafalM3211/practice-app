@@ -1,27 +1,29 @@
 import { useQuery, useMutation } from 'react-query';
-import { useMemo, useContext, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import AlertTitle from '@mui/material/AlertTitle';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { Container } from '@mui/system';
-import { GridActionsCellItem, gridStringOrNumberComparator, gridNumberComparator } from '@mui/x-data-grid';
+import { GridActionsCellItem, gridStringOrNumberComparator, gridNumberComparator} from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import { SnackbarContext } from '../../context/snackbar';
+import { useSnackbarContext } from '../../context/snackbar';
 import Table from '../../components/table/Table';
 import ButtonLink from '../../components/link/ButtonLink';
 import ViewHeader from '../../components/headers/MainHeader';
 import Modal from '../../components/modal/Modal';
 import { getPostsRequest, sendDeleteRequest } from '../../core/services/posts';
 import { Tooltip } from '@mui/material';
+import type { Post } from '../../globalTypes/globalTypes';
+import type {GridComparatorFn, GridRowParams, GridRowId } from '@mui/x-data-grid';
 
 
 const Main = () => {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
-  const [deletedPost, setDeletedPost] = useState(null);
-  const { successNotification, errorNotification } = useContext(SnackbarContext);
+  const [deletedPost, setDeletedPost] = useState<Post | null>(null);
+  const { successNotification, errorNotification } = useSnackbarContext();
   const { isLoading, isRefetching, data: rowsData, error, refetch } = useQuery('posts', getPostsRequest);
   const { mutate, isLoading: isDeletingLoading } = useMutation(sendDeleteRequest, {
     onSuccess: () => {
@@ -35,20 +37,21 @@ const Main = () => {
     },
   });
 
-  const handleEditClick = useCallback((id) => {
+  const handleEditClick = useCallback((id: GridRowId) => {
     navigate(`/edit/${id}`);
   }, [navigate]); 
 
-  const handleDeleteClick = useCallback((row) => {
+  const handleDeleteClick = useCallback((row: Post) => {
     setDeletedPost(row);
     setModalOpen(true);
   }, [setDeletedPost, setModalOpen]);
 
   const deletePost = () => {
+    if(!deletedPost) throw new Error("Deleted post set to null");
     mutate(deletedPost.id);
   };
 
-  const comparator = (v1, v2, param1, param2) => {
+  const comparator: GridComparatorFn = (v1, v2, param1, param2) => {
     const title1Parsed = parseInt(v1);
     const title2Parsed = parseInt(v2);
     if (!isNaN(title1Parsed) && !isNaN(title2Parsed)) {
@@ -77,7 +80,7 @@ const Main = () => {
         field: 'actions',
         headerName: 'Akcje',
         type: 'actions',
-        getActions: (rowParams) => {
+        getActions: (rowParams: GridRowParams) => {
           return [
             <Tooltip title="Edytuj">
               <GridActionsCellItem
@@ -106,39 +109,41 @@ const Main = () => {
 
   return (
     <Container>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <ViewHeader>Lista postów</ViewHeader>
-        <ButtonLink variant="contained" to="/add">
-          dodaj
-        </ButtonLink>
-      </Box>
-
-      {error && (
-        <Alert sx={{ mb: 1 }} severity="error">
-          <AlertTitle>Błąd</AlertTitle>
-          Wystąpił nieznany błąd podczas generowania tabeli
-        </Alert>
-      )}
-
-      <Table loading={isLoading || isRefetching} columns={columns} rows={rowsData || []} disableVirtualization />
-      {isModalOpen ? (
-        <Modal
-          title={deletedPost.title}
-          loading={isDeletingLoading}
-          onConfirm={() => {
-            deletePost();
+      <>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
-          onCancel={() => {
-            setModalOpen(false);
-          }}
-        />
-      ) : null}
+        >
+          <ViewHeader>Lista postów</ViewHeader>
+          <ButtonLink variant="contained" to="/add">
+            dodaj
+          </ButtonLink>
+        </Box>
+
+        {error && (
+          <Alert sx={{ mb: 1 }} severity="error">
+            <AlertTitle>Błąd</AlertTitle>
+            Wystąpił nieznany błąd podczas generowania tabeli
+          </Alert>
+        )}
+
+        <Table loading={isLoading || isRefetching} columns={columns} rows={rowsData || []} disableVirtualization={true} />
+        {isModalOpen ? (
+          <Modal
+            title={deletedPost?.title || ''}
+            loading={isDeletingLoading}
+            onConfirm={() => {
+              deletePost();
+            }}
+            onCancel={() => {
+              setModalOpen(false);
+            }}
+          />
+        ) : null}
+      </>
     </Container>
   );
 };

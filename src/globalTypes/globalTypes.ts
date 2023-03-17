@@ -1,8 +1,10 @@
-export interface Post {
+export interface PostData {
     email: string,
     zipCode: string,
     title: string,
     content: string,
-    id: number
 }
 
+export interface Post extends PostData {
+    id: number
+}
