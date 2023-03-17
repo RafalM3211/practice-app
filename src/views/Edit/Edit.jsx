@@ -56,7 +56,7 @@ const Edit = () => {
       zipCode: Yup.string().matches(/^[0-9]{2}-[0-9]{3}$/, 'nieprawidłowy format'),
     }),
     onSubmit: (values) => {
-      mutate({ id, values });
+      mutate({ id, ...values });
     },
     enableReinitialize: true,
   });
