@@ -12,7 +12,7 @@ import { useMutation } from 'react-query';
 import { putPostRequest } from '../../core/services/posts';
 import ButtonLink from '../../components/link/ButtonLink';
 import { useNavigate } from 'react-router-dom';
-import { SnackbarContext } from '../../context/snackbar';
+import { useSnackbarContext } from '../../context/snackbar';
 import { useContext } from 'react';
 import LoaderOverlay from '../../components/loaderOverlay/LoaderOverlay';
 import { useIntl } from 'react-intl';
@@ -31,7 +31,7 @@ const AddPost = () => {
   });
   const intl = useIntl();
   const navigate = useNavigate();
-  const { successNotification, errorNotification } = useContext(SnackbarContext);
+  const { successNotification, errorNotification } = useSnackbarContext();
 
   const formik = useFormik({
     initialValues: {

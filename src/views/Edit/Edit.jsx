@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
-import { SnackbarContext } from '../../context/snackbar';
+import { useSnackbarContext } from '../../context/snackbar';
 import ViewHeader from '../../components/headers/MainHeader';
 import FormSection from '../../components/formSection/FormSection';
 import LoaderOverlay from '../../components/loaderOverlay/LoaderOverlay';
@@ -22,7 +22,7 @@ const Edit = () => {
   const { id } = useParams();
   const intl = useIntl();
   const navigate = useNavigate();
-  const { successNotification, errorNotification } = useContext(SnackbarContext);
+  const { successNotification, errorNotification } = useSnackbarContext();
 
   const { isLoading: isLoadingSinglePost, data: post } = useQuery([id, 'singlePost'], getSinglePostRequest);
   const {
