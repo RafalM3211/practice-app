@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Box from '@mui/material/box';
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';

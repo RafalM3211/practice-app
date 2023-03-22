@@ -8,3 +8,8 @@ export interface PostData {
 export interface Post extends PostData {
     id: number
 }
+
+export interface UserLoginData {
+    login: string,
+    password: string,
+}
