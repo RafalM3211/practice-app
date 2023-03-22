@@ -2,7 +2,7 @@ import { MemoryRouter as Router } from 'react-router-dom';
 import { QueryClientProvider, QueryClient, setLogger } from 'react-query';
 import { IntlProvider } from 'react-intl';
 import { render } from '@testing-library/react';
-import AppTheme from '../context/theme/theme';
+import AppTheme from '../context/theme';
 import SnackbarProvider from '../context/snackbar';
 import DrawerProvider from '../context/drawer.js';
 import errorMessages from '../lang/pl_PL.json';

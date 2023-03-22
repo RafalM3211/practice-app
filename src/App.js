@@ -1,5 +1,5 @@
 import './App.css';
-import AppTheme from './context/theme/theme';
+import AppTheme from './context/theme';
 import Main from './views/Main';
 import DrawerProvider from './context/drawer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
