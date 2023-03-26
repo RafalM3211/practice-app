@@ -3,12 +3,15 @@ import type { Post, PostData } from '../../globalTypes/globalTypes';
 import type { QueryFunction } from 'react-query';
 
 export const getPostsRequest: QueryFunction<Post[]> = async () => {
-  return await appApi.get('/posts').then((res) => res.json());
+  return await appApi.get('/posts').then((res) => res?.json());
 };
 
 export const getSinglePostRequest: QueryFunction<Post, [id: number, name: string]> = async ({ queryKey }) => {
-  const [id] = queryKey;
-  return await appApi.get(`/posts/${id}`).then((res) => res.json());
+  try{
+    const [id] = queryKey;
+  return await appApi.get(`/posts/${id}`).then((res) => res?.json());
+  }
+  catch{}
 };
 
 export const putPostRequest = async (postData: PostData) => {

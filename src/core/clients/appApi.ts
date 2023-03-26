@@ -1,12 +1,12 @@
-const createClient = (baseUrl, api = fetch) => {
-  let interceptRequest = (url, options) => {
+const createClient = (baseUrl: string, api = fetch) => {
+  let interceptRequest = (url: string, options: object) => {
     return { interceptedUrl: url, interceptedOptions: options };
   };
-  let interceptResponse = async (response) => response;
-  let interceptError = (error) => error;
+  let interceptResponse: ResponseInterceptor = async (response: Response) => response;
+  let interceptError: ErrorInterceptor = (error: Error) => {};
 
   return {
-    get: async (url, options = {}) => {
+    get: async (url: string, options: object = {}) => {
       try {
         const { interceptedUrl, interceptedOptions } = interceptRequest(url, options);
         let response = await api(baseUrl + interceptedUrl, interceptedOptions);
@@ -17,7 +17,7 @@ const createClient = (baseUrl, api = fetch) => {
         } else throw exception;
       }
     },
-    post: async (url, values, options = {}) => {
+    post: async (url: string, values: object, options: object = {}) => {
       try {
         const { interceptedUrl, interceptedOptions } = interceptRequest(url, options);
         let response = await api(baseUrl + interceptedUrl, {
@@ -35,7 +35,7 @@ const createClient = (baseUrl, api = fetch) => {
         } else throw exception;
       }
     },
-    put: async (url, values, options = {}) => {
+    put: async (url: string, values: object, options: object = {}) => {
       try {
         const { interceptedUrl, interceptedOptions } = interceptRequest(url, options);
         let response = await api(baseUrl + interceptedUrl, {
@@ -55,7 +55,7 @@ const createClient = (baseUrl, api = fetch) => {
         }
       }
     },
-    delete: async (url, options = {}) => {
+    delete: async (url: string, options: object = {}) => {
       try {
         const { interceptedUrl, interceptedOptions } = interceptRequest(url, options);
         let response = await api(baseUrl + interceptedUrl, {
@@ -69,10 +69,10 @@ const createClient = (baseUrl, api = fetch) => {
         } else throw exception;
       }
     },
-    registerInterceptors: ({ request, response, responseError }) => {
+    registerInterceptors: ({ request, response, responseError }: RegisterInterceptorsType) => {
       if (!!request) interceptRequest = request;
       if (!!response) interceptResponse = response;
-      if (!!response) interceptError = responseError;
+      if (!!responseError) interceptError = responseError;
     },
   };
 };
@@ -80,7 +80,7 @@ const createClient = (baseUrl, api = fetch) => {
 const appApi = createClient('http://localhost:3000', fetch);
 
 appApi.registerInterceptors({
-  response: async (response) => {
+  response: async (response: Response) => {
     if (isInternalServerError(response.status)) {
       window.location.assign('/error/500');
     }
@@ -93,21 +93,32 @@ appApi.registerInterceptors({
     }
     return response;
   },
-  responseError: (error) => {
+  responseError: (error: Error) => {
     window.location.assign('/error/500');
   },
 });
 
-const isInternalServerError = (statusCode) => {
+const isInternalServerError = (statusCode: number) => {
   return statusCode === 500;
 };
 
-const isForbiddenStatus = (statusCode) => {
+const isForbiddenStatus = (statusCode: number) => {
   return statusCode === 403;
 };
 
-const isBadRequest = (statusCode) => {
+const isBadRequest = (statusCode: number) => {
   return statusCode === 400;
 };
 
 export { appApi };
+
+
+type RequestInterceptor = (url: string, options: object)=>{ interceptedUrl: string, interceptedOptions: object };
+type ResponseInterceptor = (response: Response) => Promise<Response>;
+type ErrorInterceptor = (error: Error) => void;
+
+interface RegisterInterceptorsType {
+  request?: RequestInterceptor,
+  response?: ResponseInterceptor,
+  responseError?: ErrorInterceptor
+}
