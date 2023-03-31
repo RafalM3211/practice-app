@@ -2,7 +2,7 @@ import type { FC } from 'react'
 
 interface Props {
   width: number,
-  height: number
+  height? : number
 }
 
 const AccesDeniedImg: FC<Props> = ({ width, height = width * 0.625 }) => {
