@@ -6,7 +6,7 @@ const InternalServerError = () => {
   return (
     <ErrorBase unauthorized>
       <ServerDownImg width={350} />
-      <Typography sx={{ textAlign: 'center', mt: 3 }} variant="body" component="p">
+      <Typography sx={{ textAlign: 'center', mt: 3 }} variant="body1" component="p">
         Bład serwera. Przepraszamy
       </Typography>
     </ErrorBase>
