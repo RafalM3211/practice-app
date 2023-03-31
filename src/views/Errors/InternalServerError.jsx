@@ -1,5 +1,5 @@
 import ErrorBase from '../../components/errorBase/ErrorPageTemplate';
-import ServerDownImg from '../../images/errors/ServerDownImg.jsx';
+import ServerDownImg from '../../images/errors/ServerDownImg';
 import Typography from '@mui/material/Typography';
 
 const InternalServerError = () => {

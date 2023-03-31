@@ -1,5 +1,5 @@
 import ErrorBase from '../../components/errorBase/ErrorPageTemplate';
-import AccessDeniedImg from '../../images/errors/AccessDeniedImg.jsx';
+import AccessDeniedImg from '../../images/errors/AccessDeniedImg';
 import Typography from '@mui/material/Typography';
 
 const InternalServerError = () => {

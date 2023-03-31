@@ -1,4 +1,11 @@
-const AccesDeniedImg = ({ width, height = width * 0.625 }) => {
+import type { FC } from 'react'
+
+interface Props {
+  width: number,
+  height: number
+}
+
+const AccesDeniedImg: FC<Props> = ({ width, height = width * 0.625 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
