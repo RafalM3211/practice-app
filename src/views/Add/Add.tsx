@@ -1,4 +1,4 @@
-import { useFormik } from 'formik';
+import { FormikBag, useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import { Container } from '@mui/system';
 import ViewHeader from '../../components/headers/MainHeader';
@@ -16,6 +16,7 @@ import { useSnackbarContext } from '../../context/snackbar';
 import { useContext } from 'react';
 import LoaderOverlay from '../../components/loaderOverlay/LoaderOverlay';
 import { useIntl } from 'react-intl';
+import type { BadRequestError } from '../../core/clients/types';
 
 const AddPost = () => {
   const { mutate, isLoading } = useMutation(putPostRequest, {
@@ -23,7 +24,7 @@ const AddPost = () => {
       navigate('/');
       successNotification('Dodano pomyślnie');
     },
-    onError: (error) => {
+    onError: (error: BadRequestError&{wrongField: keyof typeof formik.errors}) => {
       const { errorMessage, wrongField } = error;
       formik.errors[wrongField] = intl.formatMessage({ id: errorMessage });
       errorNotification(errorMessage);
@@ -55,7 +56,7 @@ const AddPost = () => {
       <ViewHeader>Dodaj post</ViewHeader>
       <form onSubmit={formik.handleSubmit}>
         <SubHeader>Post</SubHeader>
-        <FormSection gap={3}>
+        <FormSection>
           <Grid item xs={12} md={4}>
             <TextField
               id="title"
@@ -65,7 +66,7 @@ const AddPost = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.title}
-              error={formik.errors.title && formik.touched.title}
+              error={!!formik.errors.title && formik.touched.title}
               helperText={formik.errors.title && formik.touched.title ? formik.errors.title : null}
               FormHelperTextProps={{ sx: { height: 0, mt: 0 } }}
               fullWidth
@@ -97,7 +98,7 @@ const AddPost = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
-              error={formik.errors.email && formik.touched.email}
+              error={!!formik.errors.email && formik.touched.email}
               helperText={formik.errors.email && formik.touched.email ? formik.errors.email : null}
               FormHelperTextProps={{ sx: { height: 0, mt: 0 } }}
               fullWidth
@@ -113,7 +114,7 @@ const AddPost = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.zipCode}
-              error={formik.errors.zipCode && formik.touched.zipCode}
+              error={!!formik.errors.zipCode && formik.touched.zipCode}
               helperText={formik.errors.zipCode && formik.touched.zipCode ? formik.errors.zipCode : null}
               FormHelperTextProps={{ sx: { height: 0, mt: 0 } }}
               fullWidth

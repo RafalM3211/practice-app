@@ -1,3 +1,5 @@
+import type { BadRequestError, RequestInterceptor, ResponseInterceptor, ErrorInterceptor} from './types';
+
 const createClient = (baseUrl: string, api = fetch) => {
   let interceptRequest = (url: string, options: object) => {
     return { interceptedUrl: url, interceptedOptions: options };
@@ -88,7 +90,7 @@ appApi.registerInterceptors({
       window.location.assign('/error/403');
     }
     if (isBadRequest(response.status)) {
-      const exceptionData = await response.json();
+      const exceptionData: BadRequestError = await response.json();
       throw exceptionData;
     }
     return response;
@@ -113,9 +115,7 @@ const isBadRequest = (statusCode: number) => {
 export { appApi };
 
 
-type RequestInterceptor = (url: string, options: object)=>{ interceptedUrl: string, interceptedOptions: object };
-type ResponseInterceptor = (response: Response) => Promise<Response>;
-type ErrorInterceptor = (error: Error) => void;
+
 
 interface RegisterInterceptorsType {
   request?: RequestInterceptor,
