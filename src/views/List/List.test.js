@@ -65,7 +65,7 @@ describe('deleting post', () => {
     );
     const user = userEvent.setup();
     renderWithProviders(<PostsList />);
-    const deleteButton = await screen.findByRole('menuitem', { name: 'Delete' });
+    const deleteButton = await screen.findByRole('menuitem', { name: 'Usuń' });
     // act
     await user.click(deleteButton);
 
@@ -82,7 +82,7 @@ describe('deleting post', () => {
     );
     const user = userEvent.setup();
     renderWithProviders(<PostsList />);
-    const deleteButton = await screen.findByRole('menuitem', { name: 'Delete' });
+    const deleteButton = await screen.findByRole('menuitem', { name: 'Usuń' });
     await user.click(deleteButton);
     const acceptPostDeletionBtn = await screen.findByRole('button', { name: /tak/i });
 
@@ -102,7 +102,7 @@ describe('deleting post', () => {
     );
     const user = userEvent.setup();
     renderWithProviders(<PostsList />);
-    const deleteButton = await screen.findByRole('menuitem', { name: 'Delete' });
+    const deleteButton = await screen.findByRole('menuitem', { name: 'Usuń' });
     await user.click(deleteButton);
     const acceptPostDeletionBtn = await screen.findByRole('button', { name: /tak/i });
 
@@ -125,7 +125,7 @@ describe('deleting post', () => {
     );
     const user = userEvent.setup();
     renderWithProviders(<PostsList />);
-    const deleteButton = await screen.findByRole('menuitem', { name: 'Delete' });
+    const deleteButton = await screen.findByRole('menuitem', { name: 'Usuń' });
     await user.click(deleteButton);
     const acceptPostDeletionBtn = await screen.findByRole('button', { name: /tak/i });
 
