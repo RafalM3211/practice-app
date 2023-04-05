@@ -6,7 +6,7 @@ export const getPostsRequest: QueryFunction<Post[]> = async () => {
   return await appApi.get('/posts').then((res) => res?.json());
 };
 
-export const getSinglePostRequest: QueryFunction<Post, [id: number, name: string]> = async ({ queryKey }) => {
+export const getSinglePostRequest: QueryFunction<Post, [id: string, name: string]> = async ({ queryKey }) => {
   try{
     const [id] = queryKey;
   return await appApi.get(`/posts/${id}`).then((res) => res?.json());

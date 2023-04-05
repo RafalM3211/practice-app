@@ -194,8 +194,8 @@ it('displays loading state', () => {
   // arrange
 
   // act
-  renderWithProviders(<Edit />);
-
+  renderEditWithProviders();
+  
   // assert
 
   expect(screen.getAllByRole('skeletonLodaer')).toHaveLength(4);

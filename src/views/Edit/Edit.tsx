@@ -17,9 +17,11 @@ import LoaderOverlay from '../../components/loaderOverlay/LoaderOverlay';
 import ButtonLink from '../../components/link/ButtonLink';
 import SubHeader from '../../components/headers/SubHeader';
 import { getSinglePostRequest, sendPutRequest } from '../../core/services/posts';
+import type { BadRequestError } from '../../core/clients/types';
 
 const Edit = () => {
   const { id } = useParams();
+  if(!id) throw new Error("Post id not specified in url");
   const intl = useIntl();
   const navigate = useNavigate();
   const { successNotification, errorNotification } = useSnackbarContext();
@@ -35,7 +37,7 @@ const Edit = () => {
       navigate('/');
       successNotification('Post został zaktualizowany');
     },
-    onError: (error) => {
+    onError: (error: BadRequestError&{wrongField: keyof typeof formik.errors}) => {
       const { errorMessage, wrongField } = error;
       const formattedErrorMessage = intl.formatMessage({ id: errorMessage });
       formik.setErrors({ [wrongField]: formattedErrorMessage });
@@ -56,7 +58,7 @@ const Edit = () => {
       zipCode: Yup.string().matches(/^[0-9]{2}-[0-9]{3}$/, 'nieprawidłowy format'),
     }),
     onSubmit: (values) => {
-      mutate({ id, ...values });
+      mutate({ id: parseInt(id) , ...values });
     },
     enableReinitialize: true,
   });
@@ -71,7 +73,7 @@ const Edit = () => {
       <ViewHeader>Edytuj post</ViewHeader>
       <form onSubmit={formik.handleSubmit}>
         <SubHeader>Post</SubHeader>
-        <FormSection gap={3}>
+        <FormSection>
           <Grid item xs={12} md={4}>
             {isLoadingSinglePost ? (
               <Skeleton role="skeletonLodaer" variant="rounded" width="100%">
@@ -86,7 +88,7 @@ const Edit = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.title}
-                error={formik.errors.title && formik.touched.title}
+                error={!!formik.errors.title && formik.touched.title}
                 helperText={formik.errors.title && formik.touched.title ? formik.errors.title : null}
                 FormHelperTextProps={{ sx: { height: 0, mt: 0 } }}
                 fullWidth
@@ -130,7 +132,7 @@ const Edit = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
-                error={formik.errors.email && formik.touched.email}
+                error={!!formik.errors.email && formik.touched.email}
                 helperText={formik.errors.email && formik.touched.email ? formik.errors.email : null}
                 FormHelperTextProps={{ sx: { height: 0, mt: 0 } }}
                 fullWidth
@@ -152,7 +154,7 @@ const Edit = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.zipCode}
-                error={formik.errors.zipCode && formik.touched.zipCode}
+                error={!!formik.errors.zipCode && formik.touched.zipCode}
                 helperText={formik.errors.zipCode && formik.touched.zipCode ? formik.errors.zipCode : null}
                 FormHelperTextProps={{ sx: { height: 0, mt: 0 } }}
                 fullWidth
