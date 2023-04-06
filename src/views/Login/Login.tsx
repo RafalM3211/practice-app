@@ -12,6 +12,7 @@ import { useIntl } from 'react-intl';
 import { useUserContext } from '../../context/user';
 import { sendLoginRequest } from '../../core/services/user';
 import { useEffect } from 'react';
+import type { BadRequestError } from '../../core/clients/types';
 
 const Login = () => {
   const intl = useIntl();
@@ -23,12 +24,12 @@ const Login = () => {
 
   const { mutate, isLoading } = useMutation(sendLoginRequest, {
     onSuccess: async (response) => {
-      const { token } = await response.json();
+      const { token } = response;
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('userName', formik.values.login);
       updateUser({ isLoggedIn: true, name: formik.values.login });
     },
-    onError: (error) => {
+    onError: (error: BadRequestError) => {
       const { errorMessage } = error;
       const formattedErrorMessage = intl.formatMessage({ id: errorMessage });
       formik.setErrors({ login: formattedErrorMessage, password: formattedErrorMessage });
