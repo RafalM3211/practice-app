@@ -4,8 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const rootElement=document.getElementById('root');
+if(!rootElement){
+  throw new Error("no element with id root");
+}
+
+const reactRoot = ReactDOM.createRoot(rootElement);
+reactRoot.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
