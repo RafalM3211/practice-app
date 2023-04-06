@@ -7,7 +7,7 @@ import type { Theme } from '@mui/material/styles';
 const calcHeightWithBreakpoints = (theme: Theme) => {
   const smToolbarHeight = theme.mixins.toolbar['@media (min-width:600px)'] as number;
   const xsToolbarHeight = theme.mixins.toolbar.minHeight;
-  if(xsToolbarHeight==undefined) throw new Error("min height set to undefinded");
+  if(xsToolbarHeight===undefined) throw new Error("min height set to undefinded");
   return { xs: calcForToolbarHeight(xsToolbarHeight), sm: calcForToolbarHeight(smToolbarHeight) };
 };
 

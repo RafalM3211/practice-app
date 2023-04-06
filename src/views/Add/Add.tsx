@@ -1,4 +1,4 @@
-import { FormikBag, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import { Container } from '@mui/system';
 import ViewHeader from '../../components/headers/MainHeader';
@@ -13,7 +13,6 @@ import { putPostRequest } from '../../core/services/posts';
 import ButtonLink from '../../components/link/ButtonLink';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbarContext } from '../../context/snackbar';
-import { useContext } from 'react';
 import LoaderOverlay from '../../components/loaderOverlay/LoaderOverlay';
 import { useIntl } from 'react-intl';
 import type { BadRequestError } from '../../core/clients/types';
