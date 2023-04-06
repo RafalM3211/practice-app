@@ -2,7 +2,7 @@ import SnackbarProvider from '../context/snackbar';
 import UserProvider from '../context/user';
 import Box from '@mui/material/Box';
 import { Routes, Route } from 'react-router-dom';
-import HeaderAppBar from 'Components/appBar/AppBar';
+import HeaderAppBar from '../components/appBar/AppBar';
 import NavigationDrawer from '../components/NavigationDrawer/NavigationDrawer';
 import PostsList from './List/List';
 import AddPost from './Add/Add';
