@@ -13,7 +13,7 @@ import { useUserContext } from '../../context/user';
 import type { FC } from 'react';
 
 interface Props {
-  menuIconHidden: boolean
+  menuIconHidden?: boolean
 }
 
 const AppBar: FC<Props> = ({ menuIconHidden }) => {
